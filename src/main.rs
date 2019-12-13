@@ -102,7 +102,13 @@ fn main() {
     let path = matches.value_of("source").unwrap();
     let mut compile = std::process::Command::new("javac")
         .arg(path).arg("-d").arg("running").spawn().unwrap();
-    compile.wait().unwrap();
+    match compile.wait() {
+        Ok(e) if e.code() == Some(0) => (),
+        _ =>  {
+            println!("CE");
+            std::process::exit(0);
+        }
+    };
     for i in 1..=10 {
         execute(q, i, &key);
     }
