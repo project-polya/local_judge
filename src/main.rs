@@ -4,9 +4,6 @@ use clap;
 use sodiumoxide::crypto::secretbox::*;
 
 static KEY: &'static [u8] = include_bytes!("key_file");
-#[global_allocator]
-static ALLOC: jemallocator::Jemalloc = jemallocator::Jemalloc;
-
 fn decode_input(q: usize, id: usize, key: &Key) -> String {
     let mut _nonce_file = std::fs::File::open(format!("data/{}_in_{}_a", q, id)).unwrap();
     let mut nonce = [0_u8; 24];

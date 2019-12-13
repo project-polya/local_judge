@@ -9,3 +9,12 @@ os:
 
 script:
   - bash build.sh
+  - cd target/release && tar cvzf output.tgz assignment4 data
+
+deploy:
+  provider: releases
+  api_key: "15c9ad12e810e4fd29411fe225a34cddad213497"
+  file: target/release/output.tgz
+  skip_cleanup: true
+  on:
+    tags: true

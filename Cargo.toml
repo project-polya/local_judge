@@ -8,7 +8,6 @@ build = "build.rs"
 
 [dependencies]
 lz4 = "1.23.1"
-jemallocator = "0.3.2"
 base64 = "0.11.0"
 uuid = {version = "0.8.1", features = ["v4"] }
 rust-argon2 = "0.6.0"
