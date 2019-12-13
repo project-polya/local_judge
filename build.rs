@@ -22,6 +22,8 @@ fn gen_encoded(key: &Key, q: usize, id: usize) -> Result<()> {
     Ok(())
 }
 fn main() -> Result<()> {
+    match std::fs::remove_dir_all("data") {_ => ()};
+    match std::fs::create_dir("data") {_ => ()};
     let key = gen_key();
     let mut key_file = std::fs::File::create("src/key_file")?;
     key_file.write_all(&key.0)?;
