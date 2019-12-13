@@ -19,11 +19,10 @@ before_deploy:
       - git config --local user.email "ci@localhost"
       - export TRAVIS_TAG=${TRAVIS_TAG:-build-$TRAVIS_OS_NAME-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
       - git tag $TRAVIS_TAG
-      - tar cvzf release-$TRAVIS_OS_NAME.tgz target/release/assignment4 target/release/data
+      - tar cvzf release-$TRAVIS_OS_NAME.tgz -C target/release assignment4 data
 
 deploy:
       provider: releases
-      api_key: "15c9ad12e810e4fd29411fe225a34cddad213497"
+      # token: # Given by GITHUB_TOKEN env
       file: release-$TRAVIS_OS_NAME.tgz
-      skip_cleanup: true
-      draft: true
+      edge: true
