@@ -7,18 +7,10 @@ os:
   - osx
   - windows
 
-jobs:
-  allow_failures:
-    - os: windows
-
 script:
   - bash build.sh
 
 before_deploy:
-      - git config --local user.name "Travis CI"
-      - git config --local user.email "ci@localhost"
-      - export TRAVIS_TAG=${TRAVIS_TAG:-build-$TRAVIS_OS_NAME-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
-      - git tag $TRAVIS_TAG
       - tar cvzf release-$TRAVIS_OS_NAME.tgz -C target/release assignment4 data
 
 deploy:
@@ -26,3 +18,5 @@ deploy:
       # token: # Given by GITHUB_TOKEN env
       file: release-$TRAVIS_OS_NAME.tgz
       edge: true
+      on:
+        tags: true
